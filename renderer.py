@@ -3,14 +3,17 @@ import sys
 from pygame.locals import *
 from gme.box import Box
 from gme.bfs import BreadhFirstSearch
+from gme.dfs import DepthFirstSearch
 from time import sleep
+
+sys.setrecursionlimit(5000)
 
 
 class Renderer():
     WIDTH = 800
     HEIGHT = 600
-    ROW = 50
-    COL = 50
+    ROW = 25
+    COL = 25
     MENU_PERCENT = 0.25
 
     def __init__(self) -> None:
@@ -24,6 +27,7 @@ class Renderer():
         self.src = None
         self.dest = None
         self.bfs = BreadhFirstSearch(self.WINDOW_BOX)
+        self.dfs = DepthFirstSearch(self.WINDOW_BOX)
 
     def setup(self):
         pass
@@ -43,6 +47,7 @@ class Renderer():
                     self.WINDOW_BOX.select_block(*cur_pos)
                 if pygame.mouse.get_pressed()[1]:
                     if self.src and self.dest:
+                        # self.dfs.find_path(self.src, self.dest)
                         self.bfs.find_path(self.src, self.dest)
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_s:
