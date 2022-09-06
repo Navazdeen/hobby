@@ -14,10 +14,8 @@ class DepthFirstSearch():
     def search(self, src, dest):
         sleep(0.01)
         v = src
-        self.box.update_block() # comment out to run this as a main file
         v.visit()
         if src == dest:
-            print("found")
             return src
         for id in self.box.adjacent_block(v):
             block = self.block_list[id]
@@ -40,23 +38,16 @@ class DepthFirstSearch():
         current_id = self.box.get_id(block=dest)
         # print(self.path)
         while src_id != current_id:
-            self.box.update_block()  # comment out to run this as a main file
             current_id = self.path[current_id]
             self.box.block_list[current_id].make_path()
-
-        # self.stack.pop()
-        # self.stack.pop(0)
-        # for blk in self.stack:
-        #     blk.set_color("Red")
-        #     # print(blk)
 
 
 if __name__ == "__main__":
     bx = Box(500, 500, 25, 25)
     bx.create_block()
     lst = bx.block_list
-    # print(lst)
+    print(lst)
     dfs = DepthFirstSearch(bx)
     dfs.find_path(lst[2], lst[75])
     print(dfs.path)
-    # print(bx.block_list)
+    print(bx.block_list)

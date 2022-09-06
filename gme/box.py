@@ -2,7 +2,7 @@ from gme.block import Block
 
 
 class Box():
-    def __init__(self, width, height, rows, cols, dispsurf=None, gameobj=None) -> None:
+    def __init__(self, width, height, rows, cols) -> None:
         self.width = width
         self.height = height
         self.rows = rows
@@ -12,8 +12,6 @@ class Box():
         self.width_space = self.width//self.rows
         self.height_space = self.height//self.cols
         self.line_thick = 1
-        self.dispsurf = dispsurf
-        self.gameobj = gameobj
         self.src = None
         self.dest = None
 
@@ -24,15 +22,12 @@ class Box():
             self.block_list.append(
                 Block(self.width_space * row, self.height_space * col, x))
 
-    def update_block(self, dispsurf=None, pygame=None) -> None:
-        if dispsurf == None and pygame == None:
-            dispsurf = self.dispsurf
-            pygame = self.gameobj
+    def update_block(self, dispsurf, pygame) -> None:
         for block in self.block_list:
             # print(block.color)
             pygame.draw.rect(dispsurf, block.color, (block.x, block.y,
                              self.width_space-self.line_thick, self.height_space-self.line_thick))
-        pygame.display.update()
+        # pygame.display.update()
 
     def get_row_col(self, x=None, y=None, block=None):
         if not x and not y and block:

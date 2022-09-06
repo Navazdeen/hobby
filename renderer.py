@@ -5,6 +5,7 @@ from gme.box import Box
 from gme.bfs import BreadhFirstSearch
 from gme.dfs import DepthFirstSearch
 from time import sleep
+import threading
 
 sys.setrecursionlimit(5000)
 
@@ -22,7 +23,7 @@ class Renderer():
         self.DISPLAYSURF = pygame.display.set_mode((self.WIDTH, self.HEIGHT))
         pygame.display.set_caption("BFS")
         self.WINDOW_BOX = Box(self.WIDTH-(self.WIDTH*self.MENU_PERCENT),
-                              self.HEIGHT, self.ROW, self.COL, self.DISPLAYSURF, pygame)
+                              self.HEIGHT, self.ROW, self.COL)
         self.WINDOW_BOX.create_block()
         self.src = None
         self.dest = None
@@ -47,8 +48,11 @@ class Renderer():
                     self.WINDOW_BOX.select_block(*cur_pos)
                 if pygame.mouse.get_pressed()[1]:
                     if self.src and self.dest:
-                        # self.dfs.find_path(self.src, self.dest)
-                        self.bfs.find_path(self.src, self.dest)
+                        x=self.dfs.find_path
+                        # x = self.bfs.find_path
+                        thd = threading.Thread(
+                            target=x, args=(self.src, self.dest))
+                        thd.start()
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_s:
                         src_id = self.WINDOW_BOX.get_id(

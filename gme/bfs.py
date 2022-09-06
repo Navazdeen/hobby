@@ -1,6 +1,7 @@
 from collections import deque
 from re import search
 from gme.box import Box
+from time import sleep
 
 
 class BreadhFirstSearch():
@@ -14,6 +15,7 @@ class BreadhFirstSearch():
         self.path.clear()
         self.queue.append(src)
         while self.queue:
+            sleep(0.01)
             # print(self.queue)
             v = self.queue.popleft()
             v.select()
@@ -27,7 +29,6 @@ class BreadhFirstSearch():
                     self.path[self.box.get_id(
                         block=block)] = self.box.get_id(block=v)
                     self.queue.append(block)
-                    self.box.update_block()
         else:
             return 0
 
