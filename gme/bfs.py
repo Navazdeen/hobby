@@ -2,7 +2,8 @@ from collections import deque
 from re import search
 from gme.box import Box
 
-class BreadhFirstSearch():
+
+class BreadhFirstSearch:
     def __init__(self, box) -> None:
         self.path = dict()
         self.queue = deque()
@@ -28,12 +29,12 @@ class BreadhFirstSearch():
                     self.box.update_block()
         else:
             return 0
-        
+
     def find_path(self, source, dest):
         if not self.search(source, dest):
             return
         source_id = self.box.get_id(block=source)
-        dest_id = self.box.get_id(block = dest)
+        dest_id = self.box.get_id(block=dest)
         current_id = dest_id
         # print(current_id, dest_id, source_id, self.path[3])
         while source_id != current_id:
@@ -43,15 +44,12 @@ class BreadhFirstSearch():
         source.set_color("Orange")
         dest.set_color("Blue")
 
-    
 
 if __name__ == "__main__":
-    bx = Box(500,500, 20, 20)
+    bx = Box(500, 500, 20, 20)
     bx.create_block()
     lst = bx.block_list
     # print(lst)
     bfs = BreadhFirstSearch(bx, lst[70])
     bfs.find_path(lst[150])
     # print(bx.block_list)
-    
-    

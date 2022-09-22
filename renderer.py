@@ -6,7 +6,7 @@ from gme.bfs import BreadhFirstSearch
 from time import sleep
 
 
-class Renderer():
+class Renderer:
     WIDTH = 800
     HEIGHT = 600
     ROW = 50
@@ -18,8 +18,14 @@ class Renderer():
         pygame.init()
         self.DISPLAYSURF = pygame.display.set_mode((self.WIDTH, self.HEIGHT))
         pygame.display.set_caption("BFS")
-        self.WINDOW_BOX = Box(self.WIDTH-(self.WIDTH*self.MENU_PERCENT),
-                              self.HEIGHT, self.ROW, self.COL, self.DISPLAYSURF, pygame)
+        self.WINDOW_BOX = Box(
+            self.WIDTH - (self.WIDTH * self.MENU_PERCENT),
+            self.HEIGHT,
+            self.ROW,
+            self.COL,
+            self.DISPLAYSURF,
+            pygame,
+        )
         self.WINDOW_BOX.create_block()
         self.src = None
         self.dest = None
@@ -46,13 +52,11 @@ class Renderer():
                         self.bfs.find_path(self.src, self.dest)
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_s:
-                        src_id = self.WINDOW_BOX.get_id(
-                            *pygame.mouse.get_pos())
+                        src_id = self.WINDOW_BOX.get_id(*pygame.mouse.get_pos())
                         self.src = self.WINDOW_BOX.block_list[src_id]
                         self.WINDOW_BOX.set_source(self.src)
                     if event.key == pygame.K_d:
-                        dest_id = self.WINDOW_BOX.get_id(
-                            *pygame.mouse.get_pos())
+                        dest_id = self.WINDOW_BOX.get_id(*pygame.mouse.get_pos())
                         self.dest = self.WINDOW_BOX.block_list[dest_id]
                         self.WINDOW_BOX.set_dest(self.dest)
 
